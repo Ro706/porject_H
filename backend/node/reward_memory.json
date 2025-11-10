@@ -1,0 +1,13 @@
+[
+  {
+    "query": "what is reinforcement learning trend in 2025",
+    "contexts": [
+      "https://medium.com/@fahey_james/the-state-of-reinforcement-learning-in-2025-foundations-frontiers-and-future-applications-c81ae556fc8a",
+      "https://datarootlabs.com/blog/state-of-reinforcement-learning-2025",
+      "https://www.reddit.com/r/reinforcementlearning/comments/1ao4ie6/how_promising_is_reinforcement_learning_today/"
+    ],
+    "answer": "In 2025, the trend of Reinforcement Learning (RL) is promising, with an industry size of over $122 billion and applications in various fields such as robotics, autonomous vehicles, supply chain optimization, healthcare, and gaming.",
+    "reward_score": 0.908,
+    "timestamp": "2025-11-11T03:28:16.516736"
+  }
+]
