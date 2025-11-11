@@ -178,5 +178,18 @@
     "answer": "The latest update to React JS is React 19.2.0, which introduces significant enhancements to refine component lifecycle management and optimize rendering performance. It also builds upon the features introduced in React 19, including the use of the `useTransition()` hook, which has been found to be particularly useful. Additionally, React 19 brings various new features and improvements to enhance the overall development experience, such as an updated React compiler that provides relief with memoization. The latest releases, including React 19.1 and React 19.2, demonstrate the ongoing efforts to improve and refine the React framework, with React 19.2 being the most recent release available on npm.",
     "reward_score": 0.844,
     "timestamp": "2025-11-11T05:23:22.962586"
+  },
+  {
+    "query": "tell me about symbiosis nagpur",
+    "contexts": [
+      "https://scmsnagpur.edu.in/about-scms",
+      "https://www.sibmnagpur.edu.in/",
+      "https://deshpee.com/50-awesome-things-that-india-is-famous-for/",
+      "https://www.coursera.org/specializations/introduction-data-science",
+      "https://www.laurewanders.com/what-is-india-famous-for/"
+    ],
+    "answer": "Symbiosis in Nagpur is associated with two prominent institutions: SCMS and SIBM. SCMS, established in 2019, offers a 4-year BBA program that incorporates experiential learning, providing students with a comprehensive educational experience. It is situated in Nagpur, often referred to as the 'Zero Mile' city. On the other hand, SIBM, which is part of Symbiosis International (Deemed University), is recognized as one of the top MBA colleges in Nagpur, offering high-quality management education. Both institutions are constituent parts of the Symbiosis network, which is known for its excellence in education. However, specific details about the courses, faculty, and achievements of these institutions in Nagpur are not provided in the given context.",
+    "reward_score": 0.832,
+    "timestamp": "2025-11-11T05:54:56.284427"
   }
 ]
