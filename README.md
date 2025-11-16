@@ -6,43 +6,75 @@ Project M.A.R.S. is an intelligent chatbot application that leverages Retrieval-
 
 General-purpose Large Language Models (LLMs) have a vast but static knowledge base. Their information is limited to what they were trained on, and they can sometimes provide outdated or incorrect information (a phenomenon known as "hallucination").
 
-M.A.R.S. overcomes these limitations by:
+M.A.R.S. overcomes these limitations by implementing a sophisticated RAG (Retrieval-Augmented Generation) pipeline and a comprehensive evaluation system:
 
-*   **Context-Specific Knowledge:** It can answer questions based on the content of relevant URLs retrieved based on the user's query.
-*   **Reduces Hallucination:** By grounding its answers in the provided text, the RAG model is much less likely to make things up.
-*   **Up-to-Date Information:** It can access the latest information available on the web.
-*   **Comprehensive Evaluation:** It provides a detailed comparison between the RAG and standard LLM answers, using a variety of metrics, to help the user understand the strengths and weaknesses of each approach.
+1.  **Dynamic Information Retrieval (RAG Core):**
+    *   When a user submits a query, M.A.R.S. first uses a search tool (Serper API) to find relevant web pages.
+    *   These web pages are then scraped for their content, and the extracted text is converted into numerical representations (embeddings).
+    *   These embeddings are stored in a vector database (Pinecone), creating a dynamic, up-to-date knowledge base specific to the query.
+    *   A powerful LLM (Groq's Llama 3.3) then generates an answer, but critically, it is "augmented" with the retrieved and embedded context from the web. This ensures the answer is grounded in current, external information.
+
+2.  **Direct LLM Response:**
+    *   Simultaneously, the same LLM generates an answer to the user's query *without* any external context (i.e., a pure LLM response).
+
+3.  **Comprehensive Evaluation:**
+    *   Both the RAG-augmented answer and the pure LLM answer are then subjected to a rigorous, multi-metric evaluation process:
+        *   **Semantic Similarity:** Measures how semantically similar the two answers are to each other using Sentence-Transformers.
+        *   **BERTScore:** Evaluates the quality of the RAG answer against the LLM answer (or vice-versa) by comparing their contextual embeddings, providing precision, recall, and F1 scores.
+        *   **Factual Accuracy (QA-based):** A Question-Answering (QA) model (e.g., RoBERTa-base-squad2) is used to assess if key facts from the original query are present and correctly addressed in each answer.
+        *   **Judge Model Comparison:** A powerful LLM acts as an impartial judge, comparing both answers qualitatively, providing a justification, and declaring a "winner" based on overall quality, relevance, and completeness.
+
+This multi-faceted approach ensures that M.A.R.S. not only provides context-specific, up-to-date, and less hallucinatory answers but also offers transparency into the performance differences between RAG and pure LLM approaches.
 
 ## Flow Diagram
 
-Here is the flow of how the application works:
+Here is the detailed flow of how the application works:
 
 ```
-+---------------------+      +----------------------+      +---------------------+
-|   User Interface    |      |      Node.js/Express |      |    Python Scripts   |
-|      (React)        |      |        Backend       |      |      (RAG Core)     |
-+---------------------+      +----------------------+      +---------------------+
-          |                            |                             |
-          | 1. User sends query        |                             |
-          |--------------------------->| 2. Backend calls Python     |
-          |                            |    script for comparison    |
-          |                            |--------------------------->| 3. Python script:
-          |                            |                             |    - Scrapes web for context
-          |                            |                             |    - Generates RAG answer
-          |                            |                             |    - Generates LLM answer
-          |                            |                             |    - Performs comprehensive
-          |                            |                             |      evaluation
-          |                            |                             |
-          |                            | 4. Return RAG answer,       |
-          |<---------------------------|    LLM answer, and          |
-          |                            |    evaluation to backend    |
-          |                            |                             |
-          | 5. Backend sends data to   |                             |
-          |    frontend                |                             |
-          |                            |                             |
-          | 6. Display comparison      |                             |
-          |    and evaluation to user  |                             |
-          |                            |                             |
++---------------------+      +----------------------+      +-----------------------------------------------------+
+|   User Interface    |      |      Node.js/Express |      |    Python Scripts (RAG Core & Evaluation)           |
+|      (React)        |      |        Backend       |      |                                                     |
++---------------------+      +----------------------+      +-----------------------------------------------------+
+          |                            |                                               |
+          | 1. User submits query      |                                               |
+          |    (always triggers        |                                               |
+          |    comparison)             |                                               |
+          |--------------------------->| 2. Backend receives query                     |
+          |                            |    and invokes `rag_query_compare.py`         |
+          |                            |---------------------------------------------->| 3. `rag_query_compare.py` starts:
+          |                            |                                               |    a. **Dynamic Data Ingestion:**
+          |                            |                                               |       - Uses `searchurl.py` (Serper API) to find relevant URLs.
+          |                            |                                               |       - Uses `webscrap.py` to scrape content from found URLs.
+          |                            |                                               |       - Embeds scraped content using `SentenceTransformer`.
+          |                            |                                               |       - Upserts embeddings to Pinecone vector database.
+          |                            |                                               |    b. **RAG Answer Generation:**
+          |                            |                                               |       - Retrieves most relevant documents from Pinecone based on query.
+          |                            |                                               |       - Constructs a prompt with retrieved context.
+          |                            |                                               |       - Sends prompt to Groq LLM (`llama-3.3-70b-versatile`) for RAG answer.
+          |                            |                                               |    c. **Pure LLM Answer Generation:**
+          |                            |                                               |       - Sends original query directly to Groq LLM (`llama-3.3-70b-versatile`) for a non-RAG answer.
+          |                            |                                               |    d. **Comprehensive Evaluation:**
+          |                            |                                               |       - Calls `comprehensive_evaluate.py` with query, RAG answer, and LLM answer.
+          |                            |                                               |       - `comprehensive_evaluate.py` calculates:
+          |                            |                                               |         - Semantic Similarity (Sentence-Transformers)
+          |                            |                                               |         - BERTScore (between RAG and LLM answers)
+          |                            |                                               |         - Factual Accuracy (QA model, e.g., RoBERTa-base-squad2)
+          |                            |                                               |         - Judge Model Evaluation (Groq LLM for qualitative comparison & winner)
+          |                            |                                               |       - Returns all evaluation scores and winner.
+          |                            |                                               |
+          |<---------------------------| 4. `rag_query_compare.py` returns a single    |
+          |                            |    JSON object containing RAG answer, LLM     |
+          |                            |    answer, and comprehensive evaluation.      |
+          |                            |                                               |
+          | 5. Backend sends this      |                                               |
+          |    data to the frontend    |                                               |
+          |<---------------------------|                                               |
+          | 6. Frontend displays       |                                               |
+          |    side-by-side comparison |                                               |
+          |    of answers, detailed    |                                               |
+          |    evaluation metrics,     |                                               |
+          |    and a visual graph.     |                                               |
+          |                            |                                               |
 ```
 
 ## Key Features
