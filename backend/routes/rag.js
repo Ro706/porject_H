@@ -72,4 +72,70 @@ router.post('/query', (req, res) => {
     });
 });
 
+
+router.post('/compare', (req, res) => {
+    const { query } = req.body;
+    console.log('Received query for comparison:', query);
+
+    if (!query) {
+        return res.status(400).json({ error: 'Query is required' });
+    }
+
+    const pythonProcess = spawn('python', [path.join(__dirname, '..', 'node', 'rag_query_compare.py')]);
+
+    let stdoutBuffer = '';
+    let stderr = '';
+    let ragAnswer = null;
+    let llmAnswer = null;
+
+    pythonProcess.stdin.write(query);
+    pythonProcess.stdin.end();
+
+    pythonProcess.stdout.on('data', (data) => {
+        stdoutBuffer += data.toString();
+        let newlineIndex;
+        while ((newlineIndex = stdoutBuffer.indexOf('\n')) !== -1) {
+            const line = stdoutBuffer.substring(0, newlineIndex).trim();
+            stdoutBuffer = stdoutBuffer.substring(newlineIndex + 1);
+
+            if (line.startsWith('{') && line.endsWith('}')) {
+                try {
+                    const jsonMessage = JSON.parse(line);
+                    if (jsonMessage.type === "rag_answer") {
+                        ragAnswer = jsonMessage.answer;
+                    } else if (jsonMessage.type === "llm_answer") {
+                        llmAnswer = jsonMessage.answer;
+                    }
+                } catch (e) {
+                    console.log('Python stdout (malformed JSON or non-JSON):', line);
+                }
+            } else {
+                console.log('Python stdout (non-JSON):', line);
+            }
+        }
+    });
+
+    pythonProcess.stderr.on('data', (data) => {
+        console.error('Python stderr:', data.toString());
+        stderr += data.toString();
+    });
+
+    pythonProcess.on('close', (code) => {
+        console.log(`Python script for comparison exited with code ${code}`);
+        if (code !== 0) {
+            console.error('Error executing Python script for comparison:', stderr);
+            return res.status(500).json({ error: 'Failed to process query for comparison', details: stderr });
+        }
+
+        if (ragAnswer !== null && llmAnswer !== null) {
+            console.log('Successfully processed query for comparison:', { ragAnswer, llmAnswer });
+            res.json({ rag_answer: ragAnswer, llm_answer: llmAnswer });
+        } else {
+            console.error('Failed to get answers from Python script. Full stdout buffer:', stdoutBuffer);
+            res.status(500).json({ error: 'Failed to parse Python script output for comparison', details: stdoutBuffer });
+        }
+    });
+});
+
 module.exports = router;
+

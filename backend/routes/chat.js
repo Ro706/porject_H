@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const fetchuser = require('../middleware/fetchuser');
 const Chat = require('../models/Chat');
+const Score = require('../models/Score');
 
 // Route 1: Save a chat conversation - POST "/api/chat/save" (Login Required)
 router.post('/save', fetchuser, async (req, res) => {
@@ -68,6 +69,25 @@ router.delete('/:id', fetchuser, async (req, res) => {
         res.json({ success: true, message: "Chat deleted successfully" });
     } catch (error) {
         console.error("Delete Chat Error:", error.message);
+        res.status(500).json({ success: false, error: "Internal Server Error" });
+    }
+});
+
+// Route 5: Rate a response - POST "/api/chat/rate" (Login Required)
+router.post('/rate', fetchuser, async (req, res) => {
+    try {
+        const { query_id, model, vote } = req.body;
+
+        const score = new Score({
+            query_id,
+            model,
+            vote,
+        });
+
+        await score.save();
+        res.json({ success: true, message: "Vote saved successfully" });
+    } catch (error) {
+        console.error("Rate Response Error:", error.message);
         res.status(500).json({ success: false, error: "Internal Server Error" });
     }
 });

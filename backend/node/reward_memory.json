@@ -269,5 +269,96 @@
     "answer": "India is a country with a rich cultural heritage and a long history that spans thousands of years. It is home to a diverse population of over 1.44 billion people, with a wide range of languages, including Hindi, English, and many local dialects. The country is known for its iconic monuments, such as the Taj Mahal, and its many temples, which are a testament to its spiritual and historical significance. India is also famous for its vibrant festivals, diverse cuisine, and its role as the origin of yoga. The country has a thriving film industry, known as Bollywood, and is also passionate about sports, particularly cricket. With its complex history, which includes periods of unification, colonization, and independence, India has emerged as a unique and fascinating country with a distinct identity. From its spices and Indian food to its spiritual destinations and local customs, India is a country that is steeped in tradition and culture, and is a popular destination for tourists and travelers from around the world.",
     "reward_score": 0.817,
     "timestamp": "2025-11-11T06:13:12.823647"
+  },
+  {
+    "query": "tell me about george bush",
+    "contexts": [
+      "https://georgewbush-whitehouse.archives.gov/president/biography.html",
+      "https://www.britannica.com/biography/George-W-Bush",
+      "https://www.bush41.org/history/biography",
+      "https://www.whitehousehistory.org/bios/george-w-bush",
+      "https://www.laurewanders.com/what-is-india-famous-for/"
+    ],
+    "answer": "George Bush refers to two notable figures in American history: George H.W. Bush, the 41st President of the United States, and George W. Bush, the 43rd President. George W. Bush was born on July 6, 1946, and served as president from 2001 to 2009. He is notable for being the second presidential son to assume office, following in the footsteps of John Quincy Adams. Initially, his presidency focused on tax cuts and education reform. His father, George H.W. Bush, was the 41st President, sworn into office on January 20, 1989, and played a significant role in shaping the country's response to a new geopolitical era. Both presidents have left their mark on American history, with George W. Bush leading the country's response to significant global events during his tenure.",
+    "reward_score": 0.842,
+    "timestamp": "2025-11-11T12:44:35.252242"
+  },
+  {
+    "query": "ramesh verma allo ki sabji recipe",
+    "contexts": [
+      "https://cookpad.com/eng/recipes/13790258",
+      "https://www.authenticindiatours.com/2021/02/10/10-customs-and-traditions-in-indian-culture/",
+      "https://www.bajajfinserv.in/insurance/what-is-india-famous-for",
+      "https://www.britannica.com/place/India/Daily-life-and-social-customs",
+      "https://deshpee.com/50-awesome-things-that-india-is-famous-for/"
+    ],
+    "answer": "It appears that you're looking for a recipe for \"Allo ki Sabji,\" which seems to be a variation of a popular Indian dish. However, the provided context doesn't specifically mention \"Ramesh Verma\" or his recipe for \"Allo ki Sabji.\" \n\nGiven the information available, it's possible that \"Allo ki Sabji\" could be similar to a potato-based dish, as \"allo\" might be a colloquial or regional term for potatoes. The context does provide a recipe for \"Gobhi Aloo Matar Sabji\" which includes potatoes, but it's by Mahek Naaz, not Ramesh Verma. \n\nIf you're looking for a potato-based recipe, you might consider using 2 large potatoes, along with other ingredients like cauliflower, green peas, and spices, which are part of the \"Gobhi Aloo Matar Sabji\" recipe mentioned in the context. Nevertheless, without specific details on \"Ramesh Verma's Allo ki Sabji recipe,\" it's challenging to provide an exact recipe.",
+    "reward_score": 0.389,
+    "timestamp": "2025-11-11T13:49:02.186532"
+  },
+  {
+    "query": "tell me latest update related to AI Agent",
+    "contexts": [
+      "https://aiagentstore.ai/ai-agent-news/this-week",
+      "https://www.youtube.com/watch?v=drsH7iTonHc",
+      "https://www.shakudo.io/blog/top-9-large-language-models",
+      "https://www.reddit.com/r/PromptEngineering/comments/1ki9qwb/advances_in_llm_prompting_and_model_capabilities/",
+      "https://www.artificialintelligence-news.com/"
+    ],
+    "answer": "The latest updates in the field of AI agents indicate a significant push towards mainstream adoption and advancements in capabilities. Notably, Agentic AI has gained prominence, with industry expert Scott Brinker highlighting its potential at the MarTech Conference. Furthermore, OpenAI has made strides with its new agent, which is perceived as a step closer to achieving superintelligence. The current landscape is dominated by top large language models, including OpenAI, DeepSeek, and Llama, among others. Looking ahead, expectations are high for the development of more multimodal and specialized AIs that can interact through various senses, setting the stage for a more integrated and intelligent AI ecosystem. Overall, the field of AI agents is experiencing rapid growth and innovation, with ongoing advancements poised to revolutionize the way AI interacts and contributes to various industries.",
+    "reward_score": 0.841,
+    "timestamp": "2025-11-11T13:50:38.071069"
+  },
+  {
+    "query": "latest update related llm",
+    "contexts": [
+      "https://magazine.sebastianraschka.com/p/llm-research-papers-2025-list-one",
+      "https://bix-tech.com/llm-in-2025-how-large-language-models-will-redefine-business-technology-and-society/",
+      "https://prajnaaiwisdom.medium.com/llm-trends-2025-a-deep-dive-into-the-future-of-large-language-models-bff23aa7cdbc",
+      "https://prajnaaiwisdom.medium.com/llm-trends-2025-a-deep-dive-into-the-future-of-large-language-models-bff23aa7cdbc",
+      "https://www.prodshell.com/blog/llm-2025"
+    ],
+    "answer": "As of 2025, Large Language Models (LLMs) are expected to undergo significant advancements, transforming from experimental to essential technologies. This year, LLMs are anticipated to redefine various industries by enabling multilingual information processing, thus breaking down global communication barriers. Key trends in 2025 include enhanced data readiness, responsible AI, and strategic investment in LLMs. These advancements will power applications such as automated content creation, conversational AI, code generation, and advanced research assistance. Overall, 2025 is poised to be a pivotal year for LLMs, with ongoing research and development focused on improving reasoning models, reinforcement learning methods, and inference capabilities.",
+    "reward_score": 0.814,
+    "timestamp": "2025-11-11T13:59:33.128808"
+  },
+  {
+    "query": "tell me about AI agent",
+    "contexts": [
+      "https://cloud.google.com/discover/what-are-ai-agents",
+      "https://www.reddit.com/r/AI_Agents/comments/1kgruv2/what_even_is_an_ai_agent/",
+      "https://aws.amazon.com/what-is/ai-agents/",
+      "https://www.ibm.com/think/topics/ai-agents",
+      "https://www.reddit.com/r/PromptEngineering/comments/1ki9qwb/advances_in_llm_prompting_and_model_capabilities/"
+    ],
+    "answer": "An AI agent is a software system that utilizes artificial intelligence to autonomously perform tasks and pursue goals on behalf of its users. These agents possess capabilities such as reasoning, planning, and memory, which enable them to interact with their environment, collect data, and make self-directed decisions. Essentially, AI agents are designed to function independently, orchestrating multiple processing steps to complete tasks without human intervention. They can operate in various forms, from general-purpose systems to specialized ones, and are expected to become increasingly advanced, potentially even incorporating multimodal capabilities such as seeing, hearing, and talking. Overall, AI agents are programs that can autonomously execute tasks, making them valuable tools for users and systems alike.",
+    "reward_score": 0.923,
+    "timestamp": "2025-11-11T14:02:41.023283"
+  },
+  {
+    "query": "tell me about LLM latest update 2025",
+    "contexts": [
+      "https://bix-tech.com/llm-in-2025-how-large-language-models-will-redefine-business-technology-and-society/",
+      "https://prajnaaiwisdom.medium.com/llm-trends-2025-a-deep-dive-into-the-future-of-large-language-models-bff23aa7cdbc",
+      "https://prajnaaiwisdom.medium.com/llm-trends-2025-a-deep-dive-into-the-future-of-large-language-models-bff23aa7cdbc",
+      "https://www.prodshell.com/blog/llm-2025",
+      "https://hatchworks.com/blog/gen-ai/large-language-models-guide/"
+    ],
+    "answer": "In 2025, Large Language Models (LLMs) are expected to undergo significant developments, transforming from experimental to essential tools. This year, LLMs will likely become more advanced, enabling them to process information in multiple languages and thus facilitating global communication. They will power various applications, including automated content creation, conversational AI, code generation, and research assistance. Businesses are advised to invest in data readiness, responsible AI, and strategic planning to fully leverage the potential of LLMs. Overall, 2025 is poised to be a pivotal year for LLMs, with anticipated advancements in their capabilities, limitations, and applications.",
+    "reward_score": 0.952,
+    "timestamp": "2025-11-11T14:13:12.964616"
+  },
+  {
+    "query": "Who is the President of the USA who studied at Oxford University?",
+    "contexts": [
+      "https://www.bsg.ox.ac.uk/news/global-leaders-educated-oxford",
+      "https://millercenter.org/president/clinton/life-before-the-presidency",
+      "https://bidenwhitehouse.archives.gov/about-the-white-house/presidents/william-j-clinton/",
+      "https://summerinstitutes.spcs.stanford.edu/courses/2025/introduction-data-science",
+      "https://www.coursera.org/specializations/introduction-data-science"
+    ],
+    "answer": "The US President who studied at Oxford University is Bill Clinton. He was a recipient of the prestigious Rhodes Scholarship, which enabled him to spend two years studying at Oxford University in England.",
+    "reward_score": 0.773,
+    "timestamp": "2025-11-11T14:54:22.189894"
   }
 ]

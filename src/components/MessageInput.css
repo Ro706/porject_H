@@ -10,7 +10,7 @@
 .message-input {
     width: 100%;
     padding: 1rem;
-    padding-right: 4rem; /* Increased padding to accommodate the send button */
+    padding-right: 7rem; /* Increased padding to accommodate the send and compare buttons */
     border-radius: 9999px;
     background-color: #1e293b;
     color: #f8fafc;
@@ -41,6 +41,7 @@
     background-color: transparent;
     color: #f8fafc;
     cursor: pointer;
+    margin-left: 0.5rem;
 }
 
 .message-input-button:hover {
@@ -55,10 +56,18 @@
     background-color: #1d4ed8;
 }
 
+.compare-button {
+    background-color: #f97316;
+}
+
+.compare-button:hover {
+    background-color: #ea580c;
+}
+
 @media (max-width: 768px) {
     .message-input {
         padding: 0.75rem;
-        padding-right: 3.5rem;
+        padding-right: 6.5rem;
         font-size: 0.9rem;
     }
 
