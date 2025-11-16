@@ -6,6 +6,11 @@ import os
 from groq import Groq
 from datetime import datetime
 import sys
+import codecs
+
+# Reconfigure stdout to use UTF-8 encoding
+sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
+
 
 # Import search and scrape functions
 from searchurl import search_serper
@@ -107,14 +112,23 @@ for match in results["matches"]:
 # ======== STEP 6: BUILD CONTEXT FOR LLM ========
 context = "\n\n".join(context_texts)
 prompt = f"""
-Based on the following context, generate a comprehensive and coherent answer to the question.
-Integrate the information smoothly and avoid simply quoting the context directly.
-Your response should be factual, concise, and derived solely from the provided data.
+You are an expert assistant. Using only the information provided in the context below,
+compose a single, clear, and well-structured answer to the question.
+
+Requirements:
+- Use the context as a knowledge base and synthesize all relevant details.
+- Do NOT invent or assume facts that are not present in the context.
+- Do NOT copy large chunks of text; rewrite and integrate the ideas naturally.
+- Ensure the answer is complete, factual, and directly addresses the question.
+- If the context lacks enough information to fully answer, state that clearly.
 
 Context:
 {context}
 
-Question: {query}
+Question:
+{query}
+
+Answer:
 """
 
 # ======== STEP 7: GENERATE LLM RESPONSE ======== 

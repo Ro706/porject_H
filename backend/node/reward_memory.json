@@ -360,5 +360,44 @@
     "answer": "The US President who studied at Oxford University is Bill Clinton. He was a recipient of the prestigious Rhodes Scholarship, which enabled him to spend two years studying at Oxford University in England.",
     "reward_score": 0.773,
     "timestamp": "2025-11-11T14:54:22.189894"
+  },
+  {
+    "query": "tell me about node js",
+    "contexts": [
+      "https://www.reddit.com/r/learnjavascript/comments/3d4hs5/eli5_what_in_the_heck_is_nodejs/",
+      "https://nodejs.org/en/learn/getting-started/introduction-to-nodejs",
+      "https://nodejs.org/en/about",
+      "https://www.w3schools.com/nodejs/nodejs_intro.asp",
+      "https://www.w3schools.com/datascience/ds_introduction.asp"
+    ],
+    "answer": "Node.js is a free, open-source, cross-platform JavaScript runtime environment that allows developers to create a variety of applications, including servers, web apps, and command line tools. It is built on Chrome's JavaScript runtime and enables the execution of JavaScript code outside of a web browser, making it possible to run on multiple operating systems such as Windows, Mac, and Linux. This platform is designed for building fast and scalable network applications, providing developers with a versatile tool for creating a range of software solutions.",
+    "reward_score": 0.875,
+    "timestamp": "2025-11-16T20:07:05.578678"
+  },
+  {
+    "query": "what is UFO",
+    "contexts": [
+      "https://www.merriam-webster.com/dictionary/UFO",
+      "https://www.youtube.com/watch?v=szp-floUnd8",
+      "https://www.govexec.com/oversight/2023/02/what-ufo-us-shot-down-three-mysterious-objects-interest-and-concern-increase-over-unidentified-craft/383036/",
+      "https://www.ibm.com/think/topics/data-science",
+      "https://www.ibm.com/think/topics/data-science"
+    ],
+    "answer": "A UFO, or Unidentified Flying Object, refers to any mysterious flying object in the sky that cannot be quickly identified by the observer. It is a term used to describe aircraft or objects that are not easily recognizable, and it does not necessarily imply that the object is a spaceship from another planet, but rather that its identity or origin is unknown.",
+    "reward_score": 0.86,
+    "timestamp": "2025-11-16T20:25:33.364944"
+  },
+  {
+    "query": "tell about UFO",
+    "contexts": [
+      "https://www.youtube.com/watch?v=szp-floUnd8",
+      "https://www.loc.gov/collections/finding-our-place-in-the-cosmos-with-carl-sagan/articles-and-essays/life-on-other-worlds/ufos-and-aliens-among-us/",
+      "https://www.loc.gov/collections/finding-our-place-in-the-cosmos-with-carl-sagan/articles-and-essays/life-on-other-worlds/ufos-and-aliens-among-us/",
+      "https://www.newyorker.com/culture/annals-of-inquiry/whats-the-deal-with-ufos",
+      "https://www.govexec.com/oversight/2023/02/what-ufo-us-shot-down-three-mysterious-objects-interest-and-concern-increase-over-unidentified-craft/383036/"
+    ],
+    "answer": "A UFO, or Unidentified Flying Object, refers to any aerial phenomenon that cannot be quickly identified by the observer. This term encompasses a wide range of possibilities, including objects or lights that are perceived as unusual or unexplainable. Most reported UFO sightings can be attributed to mundane explanations such as balloons, airplanes, weather events, visual illusions, or technical glitches. However, a small percentage remain unexplained, contributing to the ongoing fascination and speculation about the possibility of extraterrestrial life and the presence of unknown entities. UFOs have become a part of American folk culture, often symbolizing the idea of \"aliens among us\" and sparking fears of the unknown, while also being depicted in various forms of media and popular culture.",
+    "reward_score": 0.856,
+    "timestamp": "2025-11-16T21:57:32.792895"
   }
 ]

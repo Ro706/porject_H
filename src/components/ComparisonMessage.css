@@ -1,27 +1,24 @@
-.comparison-message-container {
-    display: flex;
-    gap: 1rem;
+.comparison-message {
+    background-color: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 1rem;
+    padding: 1.5rem;
     margin-bottom: 1rem;
-    justify-content: center;
 }
 
-.comparison-responses {
+.comparison-answers {
     display: flex;
-    gap: 1rem;
-    width: 100%;
+    gap: 1.5rem;
 }
 
-.comparison-response-item {
+.answer-column {
     flex: 1;
     background-color: #1e293b;
-    color: #f8fafc;
     padding: 1rem;
-    border-radius: 1rem;
-    display: flex;
-    flex-direction: column;
+    border-radius: 0.5rem;
 }
 
-.comparison-response-item h3 {
+.answer-column h3 {
     margin-top: 0;
     font-size: 1.1rem;
     border-bottom: 1px solid #374151;
@@ -29,35 +26,6 @@
     margin-bottom: 1rem;
 }
 
-.comparison-message-text {
-    word-wrap: break-word;
-    flex-grow: 1;
-}
-
-.comparison-voting {
-    display: flex;
-    justify-content: flex-end;
-    gap: 0.5rem;
-    margin-top: 1rem;
-}
-
-.comparison-voting button {
-    background: none;
-    border: 1px solid #374151;
-    color: #9ca3af;
-    padding: 0.25rem 0.5rem;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.comparison-voting button:hover {
-    background-color: #374151;
-    color: #f8fafc;
-}
-
-.comparison-voting button.selected {
-    background-color: #2563eb;
-    color: #f8fafc;
-    border-color: #2563eb;
+.evaluation-section {
+    margin-top: 1.5rem;
 }

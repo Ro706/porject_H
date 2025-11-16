@@ -85,34 +85,12 @@ router.post('/compare', (req, res) => {
 
     let stdoutBuffer = '';
     let stderr = '';
-    let ragAnswer = null;
-    let llmAnswer = null;
 
     pythonProcess.stdin.write(query);
     pythonProcess.stdin.end();
 
     pythonProcess.stdout.on('data', (data) => {
         stdoutBuffer += data.toString();
-        let newlineIndex;
-        while ((newlineIndex = stdoutBuffer.indexOf('\n')) !== -1) {
-            const line = stdoutBuffer.substring(0, newlineIndex).trim();
-            stdoutBuffer = stdoutBuffer.substring(newlineIndex + 1);
-
-            if (line.startsWith('{') && line.endsWith('}')) {
-                try {
-                    const jsonMessage = JSON.parse(line);
-                    if (jsonMessage.type === "rag_answer") {
-                        ragAnswer = jsonMessage.answer;
-                    } else if (jsonMessage.type === "llm_answer") {
-                        llmAnswer = jsonMessage.answer;
-                    }
-                } catch (e) {
-                    console.log('Python stdout (malformed JSON or non-JSON):', line);
-                }
-            } else {
-                console.log('Python stdout (non-JSON):', line);
-            }
-        }
     });
 
     pythonProcess.stderr.on('data', (data) => {
@@ -127,11 +105,12 @@ router.post('/compare', (req, res) => {
             return res.status(500).json({ error: 'Failed to process query for comparison', details: stderr });
         }
 
-        if (ragAnswer !== null && llmAnswer !== null) {
-            console.log('Successfully processed query for comparison:', { ragAnswer, llmAnswer });
-            res.json({ rag_answer: ragAnswer, llm_answer: llmAnswer });
-        } else {
-            console.error('Failed to get answers from Python script. Full stdout buffer:', stdoutBuffer);
+        try {
+            const result = JSON.parse(stdoutBuffer);
+            console.log('Successfully processed query for comparison:', result);
+            res.json(result);
+        } catch (e) {
+            console.error('Failed to parse Python script output for comparison. Full stdout buffer:', stdoutBuffer);
             res.status(500).json({ error: 'Failed to parse Python script output for comparison', details: stdoutBuffer });
         }
     });

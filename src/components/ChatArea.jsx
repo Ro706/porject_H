@@ -39,29 +39,6 @@ const ChatArea = ({ onSendMessage, messages, setMessages }) => {
         }
     };
 
-    const fetchResponse = async (query) => {
-        setLoading(true);
-        try {
-            const token = localStorage.getItem('token');
-            const response = await axios.post('http://localhost:5800/api/rag/query', { query }, {
-                headers: {
-                    'auth-token': token,
-                },
-            });
-            const { answer, reward_score } = response.data;
-
-            const formattedRewardScore = (reward_score * 100).toFixed(2);
-            const botMessage = { text: `${answer}\n\nReward Score: ${formattedRewardScore}%`, sender: 'bot', timestamp: new Date().toISOString() };
-            setMessages((prevMessages) => [...prevMessages, botMessage]);
-        } catch (error) {
-            console.error('Error fetching response:', error);
-            const errorMessage = { text: 'Sorry, something went wrong.', sender: 'bot', timestamp: new Date().toISOString() };
-            setMessages((prevMessages) => [...prevMessages, errorMessage]);
-        } finally {
-            setLoading(false);
-        }
-    };
-
     const fetchComparisonResponse = async (query) => {
         setLoading(true);
         try {
@@ -71,13 +48,9 @@ const ChatArea = ({ onSendMessage, messages, setMessages }) => {
                     'auth-token': token,
                 },
             });
-            const { rag_answer, llm_answer } = response.data;
-
             const comparisonMessage = {
                 type: 'comparison',
-                rag_answer,
-                llm_answer,
-                query_id: new Date().getTime(), // Simple unique ID for now
+                ...response.data,
                 timestamp: new Date().toISOString()
             };
             setMessages((prevMessages) => [...prevMessages, comparisonMessage]);
@@ -92,14 +65,10 @@ const ChatArea = ({ onSendMessage, messages, setMessages }) => {
 
     useEffect(() => {
         if (onSendMessage) {
-            onSendMessage.current = (query, compare = false) => {
+            onSendMessage.current = (query) => {
                 const newMessage = { text: query, sender: 'user', timestamp: new Date().toISOString() };
                 setMessages((prevMessages) => [...prevMessages, newMessage]);
-                if (compare) {
-                    fetchComparisonResponse(query);
-                } else {
-                    fetchResponse(query);
-                }
+                fetchComparisonResponse(query);
             };
         }
     }, [onSendMessage, setMessages]);
@@ -115,12 +84,9 @@ const ChatArea = ({ onSendMessage, messages, setMessages }) => {
     return (
         <div className="chat-area">
             <div className="chat-messages">
-                {messages.map((message, index) => {
-                    if (message.type === 'comparison') {
-                        return <ComparisonMessage key={index} message={message} />;
-                    }
-                    return <Message key={index} message={message} />;
-                })}
+                {messages.map((message, index) => (
+                    <ComparisonMessage key={index} message={message} />
+                ))}
                 {loading && (
                     <div className="message-container bot">
                         <Shimmer />

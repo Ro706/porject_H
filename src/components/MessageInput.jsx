@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { FiSend } from 'react-icons/fi';
-import { LuDiff } from 'react-icons/lu';
 import './MessageInput.css';
 
 const MessageInput = ({ onSendMessage }) => {
     const [input, setInput] = useState('');
 
-    const handleSend = (compare = false) => {
+    const handleSend = () => {
         if (input.trim()) {
-            onSendMessage.current(input, compare);
+            onSendMessage.current(input, true); // Always trigger comparison
             setInput('');
         }
     };
@@ -31,11 +30,8 @@ const MessageInput = ({ onSendMessage }) => {
                     onKeyPress={handleKeyPress}
                 />
                 <div className="message-input-actions">
-                    <button className="message-input-button send-button" onClick={() => handleSend(false)}>
+                    <button className="message-input-button send-button" onClick={handleSend}>
                         <FiSend />
-                    </button>
-                    <button className="message-input-button compare-button" onClick={() => handleSend(true)}>
-                        <LuDiff />
                     </button>
                 </div>
             </div>

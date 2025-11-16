@@ -1,15 +1,16 @@
 from bs4 import BeautifulSoup
 import requests
 import json
-from searchurl import search_serper  # make sure searchurl.py exists and works
+from searchurl import search_serper
 import os
+import sys
 
 def scrape_webpage(url):
     """Scrape clean text content from a webpage."""
     try:
         response = requests.get(url, timeout=15)
         if response.status_code != 200:
-            print(f"Failed to retrieve {url} | Status code: {response.status_code}")
+            print(f"Failed to retrieve {url} | Status code: {response.status_code}", file=sys.stderr)
             return ""
 
         soup = BeautifulSoup(response.content, 'html.parser')
@@ -23,5 +24,6 @@ def scrape_webpage(url):
         return text
 
     except Exception as e:
-        print(f"Error scraping {url}: {e}")
+        print(f"Error scraping {url}: {e}", file=sys.stderr)
         return ""
+
