@@ -32,81 +32,51 @@ This multi-faceted approach ensures that M.A.R.S. not only provides context-spec
 
 ## Flow Diagram
 
-```mermaid
-flowchart TD
-
-A[User] --> B[React UI]
-B --> C[Node.js Backend]
-
-C --> D[rag_query_compare.py]
-
-D --> E[RAG Answer]
-D --> F[LLM Answer]
-
-D --> G[RL Agent]
-G --> H[Pinecone Retrieval]
-
-E --> I[Evaluation Engine: Semantic Similarity, BERTScore, QA Accuracy, LLM Judge]
-F --> I
-
-I --> J[Final Comparison Output]
-
-J --> B
-
-
-```
-
 Here is the detailed flow of how the application works:
 
-```
-+---------------------+      +----------------------+      +-----------------------------------------------------+
-|   User Interface    |      |      Node.js/Express |      |    Python Scripts (RAG Core & Evaluation)           |
-|      (React)        |      |        Backend       |      |                                                     |
-+---------------------+      +----------------------+      +-----------------------------------------------------+
-          |                            |                                               |
-          | 1. User submits query      |                                               |
-          |    (always triggers        |                                               |
-          |    comparison)             |                                               |
-          |--------------------------->| 2. Backend receives query                     |
-          |                            |    and invokes `rag_query_compare.py`         |
-          |                            |---------------------------------------------->| 3. `rag_query_compare.py` starts:
-          |                            |                                               |    a. **RL Agent Action:**
-          |                            |                                               |       - `rl_agent.py` chooses optimal `top_k` for retrieval.
-          |                            |                                               |    b. **Dynamic Data Ingestion:**
-          |                            |                                               |       - Uses `searchurl.py` (Serper API) to find relevant URLs.
-          |                            |                                               |       - Uses `webscrap.py` to scrape content from found URLs.
-          |                            |                                               |       - Embeds scraped content using `SentenceTransformer`.
-          |                            |                                               |       - Upserts embeddings to Pinecone vector database.
-          |                            |                                               |    c. **RAG Answer Generation:**
-          |                            |                                               |       - Retrieves `top_k` relevant documents from Pinecone based on query.
-          |                            |                                               |       - Constructs a prompt with retrieved context.
-          |                            |                                               |       - Sends prompt to Groq LLM (`llama-3.3-70b-versatile`) for RAG answer.
-          |                            |                                               |    d. **Pure LLM Answer Generation:**
-          |                            |                                               |       - Sends original query directly to Groq LLM (`llama-3.3-70b-versatile`) for a non-RAG answer.
-          |                            |                                               |    e. **Comprehensive Evaluation:**
-          |                            |                                               |       - Calls `comprehensive_evaluate.py` with query, RAG answer, and LLM answer.
-          |                            |                                               |       - `comprehensive_evaluate.py` calculates:
-          |                            |                                               |         - Semantic Similarity (Sentence-Transformers)
-          |                            |                                               |         - BERTScore (between RAG and LLM answers)
-          |                            |                                               |         - Factual Accuracy (QA model, e.g., RoBERTa-base-squad2)
-          |                            |                                               |         - Judge Model Evaluation (Groq LLM for qualitative comparison & winner)
-          |                            |                                               |         - Calculates a scalar `rag_reward`.
-          |                            |                                               |    f. **RL Agent Learning:**
-          |                            |                                               |       - `rl_agent.py` learns from the `rag_reward` to update its policy.
-          |                            |                                               |
-          |<---------------------------| 4. `rag_query_compare.py` returns a single    |
-          |                            |    JSON object containing RAG answer, LLM     |
-          |                            |    answer, and comprehensive evaluation.      |
-          |                            |                                               |
-          | 5. Backend sends this      |                                               |
-          |    data to the frontend    |                                               |
-          |<---------------------------|                                               |
-          | 6. Frontend displays       |                                               |
-          |    side-by-side comparison |                                               |
-          |    of answers, detailed    |                                               |
-          |    evaluation metrics,     |                                               |
-          |    and a visual graph.     |                                               |
-          |                            |                                               |
+```mermaid
+graph TD
+    subgraph Frontend ["User Interface (React)"]
+        UI[User Query]
+        Display[Display Comparison & Metrics]
+    end
+
+    subgraph Backend ["Node.js/Express Backend"]
+        API[POST /api/rag/compare]
+    end
+
+    subgraph Python ["Python Pipeline (rag_query_compare.py)"]
+        Start(Start)
+        RL_Act[RL Agent: Choose top_k]
+        
+        subgraph Ingestion ["Dynamic Data Ingestion"]
+            Serper[Serper API Search]
+            Scrape[Web Scraping]
+            Embed[Embed & Upsert to Pinecone]
+        end
+        
+        subgraph Generation ["Answer Generation"]
+            RAG_Gen[RAG Answer (Groq + Context)]
+            LLM_Gen[Pure LLM Answer (Groq)]
+        end
+        
+        Eval[Comprehensive Evaluation]
+        RL_Learn[RL Agent: Learn from Reward]
+        Result[Return JSON]
+    end
+
+    UI --> API
+    API -->|Spawn Process| Start
+    Start --> RL_Act
+    RL_Act --> Ingestion
+    Ingestion -->|Context| RAG_Gen
+    Start -->|Query| LLM_Gen
+    RAG_Gen --> Eval
+    LLM_Gen --> Eval
+    Eval --> RL_Learn
+    RL_Learn --> Result
+    Result -->|JSON Output| API
+    API -->|Response| Display
 ```
 
 ## Key Features
@@ -291,13 +261,3 @@ beautifulsoup4
 requests
 python-dotenv
 ```
-
-<img width="1600" height="776" alt="image" src="https://github.com/user-attachments/assets/c8889bfc-5b82-4629-a1e2-5b5d9f676c98" />
-<img width="1600" height="769" alt="image" src="https://github.com/user-attachments/assets/3fb88e91-6702-4c73-b0b9-2ed4fa84d973" />
-<img width="1600" height="763" alt="image" src="https://github.com/user-attachments/assets/5aae69fa-708b-4988-aedb-8260078612f9" />
-<video 
-   src="https://github.com/user-attachments/assets/8c32a062-caed-472c-9424-8311d80fb608">
-</video>
-
-
-
