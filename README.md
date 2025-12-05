@@ -36,32 +36,33 @@ Here is the detailed flow of how the application works:
 
 ```mermaid
 graph TD
-    subgraph Frontend ["User Interface (React)"]
+
+    subgraph Frontend
         UI[User Query]
-        Display[Display Comparison & Metrics]
+        Display[Display Comparison and Metrics]
     end
 
-    subgraph Backend ["Node.js/Express Backend"]
+    subgraph Backend
         API[POST /api/rag/compare]
     end
 
-    subgraph Python ["Python Pipeline (rag_query_compare.py)"]
-        Start(Start)
-        RL_Act[RL Agent: Choose top_k]
-        
-        subgraph Ingestion ["Dynamic Data Ingestion"]
+    subgraph Python_Pipeline
+        Start[Start]
+        RL_Act[RL Agent Choose top_k]
+
+        subgraph Ingestion
             Serper[Serper API Search]
             Scrape[Web Scraping]
-            Embed[Embed & Upsert to Pinecone]
+            Embed[Embed and Upsert to Pinecone]
         end
-        
-        subgraph Generation ["Answer Generation"]
-            RAG_Gen[RAG Answer (Groq + Context)]
-            LLM_Gen[Pure LLM Answer (Groq)]
+
+        subgraph Generation
+            RAG_Gen[RAG Answer Groq plus Context]
+            LLM_Gen[Pure LLM Answer Groq]
         end
-        
+
         Eval[Comprehensive Evaluation]
-        RL_Learn[RL Agent: Learn from Reward]
+        RL_Learn[RL Agent Learn from Reward]
         Result[Return JSON]
     end
 
@@ -77,6 +78,7 @@ graph TD
     RL_Learn --> Result
     Result -->|JSON Output| API
     API -->|Response| Display
+
 ```
 
 ## Key Features
@@ -261,3 +263,8 @@ beautifulsoup4
 requests
 python-dotenv
 ```
+
+
+<img width="1600" height="776" alt="image" src="r-attachments/assets/c8889bfc-5b82-4629-a1e2-5b5d9f676c98" />
+<img width="1600" height="769" alt="image" src="r-attachments/assets/3fb88e91-6702-4c73-b0b9-2ed4fa84d973" />
+<img width="1600" height="763" alt="image" src="r-attachments/assets/5aae69fa-708b-4988-aedb-8260078612f9" />
