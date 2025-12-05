@@ -263,8 +263,9 @@ beautifulsoup4
 requests
 python-dotenv
 ```
-
-
-<img width="1600" height="776" alt="image" src="r-attachments/assets/c8889bfc-5b82-4629-a1e2-5b5d9f676c98" />
-<img width="1600" height="769" alt="image" src="r-attachments/assets/3fb88e91-6702-4c73-b0b9-2ed4fa84d973" />
-<img width="1600" height="763" alt="image" src="r-attachments/assets/5aae69fa-708b-4988-aedb-8260078612f9" />
+<img width="1600" height="776" alt="image" src="https://github.com/user-attachments/assets/c8889bfc-5b82-4629-a1e2-5b5d9f676c98" />
+<img width="1600" height="769" alt="image" src="https://github.com/user-attachments/assets/3fb88e91-6702-4c73-b0b9-2ed4fa84d973" />
+<img width="1600" height="763" alt="image" src="https://github.com/user-attachments/assets/5aae69fa-708b-4988-aedb-8260078612f9" />
+<video 
+   src="https://github.com/user-attachments/assets/8c32a062-caed-472c-9424-8311d80fb608">
+</video>
